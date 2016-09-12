@@ -1,6 +1,11 @@
 # Anomalous_coupling_code
 C++ code to analyze FPMC output root files for AA->XY anomalous coupling (XY=AZ, ZZ,WW,AA)
 
+To run:
+-make clean
+-make
+-./aaAnom_signal (Outputs ROOT file with histograms that you can use for your analysis)
+
 Workflow:
 -You need an FPMC tmpntuple.ntp transformed to a root file with the command h2root tmpntuple.ntp yourfilename.root . For instructions to run FPMC see our Twiki page https://twiki.cern.ch/twiki/bin/view/Sandbox/ExclusiveDiphotonAnalysis#Forward_Physics_Monte_Carlo_FPMC
 
@@ -13,7 +18,7 @@ eta, phi distributions, what have you. You can add more observables as you see f
 
 outPileup.root is Matthias Saimpert's previous Pileup simulation rootfile with ATLAS Forward Physics (APS). This needs to be corrected for the TOTEM case, but will be used provisionally. Also, the reconstruction efficiency is assumed for the ATLAS central detectors. We need to change this for CMS central detector (We could treat a reconstructino efficiency of almost 100% for muons and electrons for a Pt>10).
 
-In the case of jets, the fastjet library is used and the anti-kt algorithm is used. You can learn more about fastjet here http://fastjet.fr/
+In the case of jets, the fastjet library is used and the anti-kt algorithm is used. You can learn more about fastjet here http://fastjet.fr/ . You don't need to use this for AA->AA, AA->WW analysis, since they don't decay hadronically.
 
 In case you want to run the analysis code on your local computer, you'll need:
 -ROOT
