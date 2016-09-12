@@ -1,0 +1,89 @@
+/*Divide and add 1D Histograms*/
+
+void format_h(TH1F* h, int linecolor){
+    h->SetLineWidth(3);
+    h->SetLineColor(linecolor);
+    }
+
+void comparison_histograms(){      
+    gROOT->SetStyle("Plain");
+  TFile *f1 = new TFile("AAZZ_anom_out_pu.root");
+//  TFile *f2 = new TFile("AAZZ_DPE_out.root");               
+    TH1F * h1 = (TH1F*)f1->Get("h_pt1");
+    TH1F * h2 = (TH1F*)f1->Get("h_pt2");
+
+    // Format Histograms
+    TH1F* histos[4]={h1,h2};
+    for (int i=0;i<2;++i){
+        histos[i]->Sumw2(); // *Very* Important
+        format_h(histos[i],i+1);
+        }
+    
+    TCanvas* c_sum= new TCanvas();
+    h1->GetXaxis()->SetTitle("p_{t}");
+    h1->GetXaxis()->SetTitleSize(0.04);
+    h1->GetXaxis()->SetLabelSize(.025);
+    h1->GetXaxis()->SetTitleOffset(0.6); 
+    h1->GetXaxis()->CenterTitle();
+    h1->GetYaxis()->SetTitle("Events");
+	h1->GetYaxis()->SetTitleSize(0.05);
+	h1->GetYaxis()->SetTitleOffset(0.40);
+	h1->GetYaxis()->CenterTitle();
+    leg = new TLegend(0.1,0.8,0.3,1.0);
+    leg->AddEntry(h1,"e^{+}e^{-}","f");
+    leg->AddEntry(h2,"#mu^{+}#mu^{-}","f");
+    h1->Draw("hist");
+    h2->Draw("SameHist");
+    leg->Draw("Same");
+  
+}/*        
+    // Divide
+    TH1F* dividend=new TH1F(*h1);    
+    dividend->Divide(h2);
+    
+    // Graphical Maquillage
+    dividend->SetTitle("Spin-0 / Spin-2");
+    format_h(dividend,kOrange);
+    h1->SetTitle("Spin-0 / Spin-2");
+    gStyle->SetOptStat(0);
+    gStyle->SetOptTitle(0);
+    dividend->SetTitle("Spin-0 to Spin-2 ratio");    
+    TCanvas* c_divide= new TCanvas();
+	c_divide->SetTitle("Proton-photon azimuthal");
+    c_divide->Divide(1,2,0,0);
+    c_divide->cd(1);
+    c_divide->GetPad(1)->SetRightMargin(.01);
+    h1->GetYaxis()->SetTitle("Events (Normalized)");
+	h1->GetYaxis()->SetTitleSize(0.05);
+	h1->GetYaxis()->SetTitleOffset(0.40);
+	h1->GetYaxis()->CenterTitle();
+    h1->DrawNormalized("Hist");
+    h2->DrawNormalized("HistSame");
+
+
+    leg = new TLegend(0.1,0.8,0.3,1.0);
+    leg->AddEntry(h1,"#e+#e-","f");
+    leg->AddEntry(h2,"#mu+#mu-","f");
+    leg->Draw("Same");
+
+    dividend->GetYaxis()->SetTitle("Ratio of histograms");
+	dividend->GetYaxis()->SetTitleSize(0.05);
+	dividend->GetYaxis()->SetTitleOffset(0.35);
+	dividend->GetYaxis()->CenterTitle();
+    dividend->GetXaxis()->SetTitle("P_{t,#e^+#e^-}");
+    dividend->GetXaxis()->SetTitleSize(0.1);
+    dividend->GetXaxis()->SetLabelSize(.042);
+    dividend->GetXaxis()->CenterTitle();
+//	dividend->GetXaxis()->SetLabelSize(textsize);
+//	dividend->GetXaxis()->SetSize(15);
+//    dividend->GetXaxis()->SetLabelSize(10000000000);
+//    dividend->GetXaxis()->SetLabelOffset(0.1);
+    dividend->GetXaxis()->SetTitleOffset(0.25);  
+    c_divide->cd(2);
+///    dividend->GetYaxis()->SetRangeUser(0,2.49);
+    c_divide->GetPad(2)->SetGridy();
+    c_divide->GetPad(2)->SetRightMargin(.01);
+
+	
+    dividend->Draw();    
+}*/

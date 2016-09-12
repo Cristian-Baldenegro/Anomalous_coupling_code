@@ -1,0 +1,14 @@
+ROOT=`root-config --cflags --libs`
+LIBS= $(ROOT)
+FASTJET=`/afs/in2p3.fr/home/m/msaimper/soft/fastjet-3.0.5-install/bin/fastjet-config --cxxflags --libs --plugins`
+
+INCLUDE=/afs/in2p3.fr/home/m/msaimper/private/QNGC/include
+
+progs=aaAnom_signal
+all:$(progs)
+
+$(progs):%:%.cxx 
+	gcc -std=gnu++0x -o $@ $< $(LIBS) $(FASTJET) -I$(INCLUDE)
+
+clean:
+	rm -f $(progs)
